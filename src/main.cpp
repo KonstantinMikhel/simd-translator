@@ -1,19 +1,27 @@
 #include <iostream>
 #include "antlr4-runtime.h"
-#include "ExprLexer.h"
-#include "ExprParser.h"
+#include "AssemblyLexer.h"
+#include "AssemblyParser.h"
+#include "CustomAssemblyVisitor.h"
 
-using namespace antlr4;
 
 int main() {
-    std::string input = "3 + 4";
-    ANTLRInputStream inputStream(input);
-    ExprLexer lexer(&inputStream);
-    CommonTokenStream tokens(&lexer);
-    ExprParser parser(&tokens);
-    
-    tree::ParseTree* tree = parser.expr();
-    std::cout << "Parsed: " << tree->toStringTree(&parser) << std::endl;
+    std::stringstream ss;
+    ss << "add eax, 5\n";
+    ss << "sub eax, eab\n";
+    ss << "sub eab, -3\n";
+    std::string input = ss.str();
+
+    antlr4::ANTLRInputStream inputStream{ input };
+    AssemblyLexer lexer{ &inputStream };
+
+    antlr4::CommonTokenStream tokens{ &lexer };
+    AssemblyParser parser{ &tokens };
+
+    AssemblyParser::ProgramContext *tree = parser.program();
+
+    CustomAssemblyVisitor visitor;
+    visitor.visit(tree);
 
     return 0;
 }

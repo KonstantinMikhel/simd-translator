@@ -1,5 +1,5 @@
 
-// Generated from grammar/Expr.g4 by ANTLR 4.13.2
+// Generated from grammar/Assembly.g4 by ANTLR 4.13.2
 
 #pragma once
 
@@ -9,15 +9,15 @@
 
 
 
-class  ExprLexer : public antlr4::Lexer {
+class  AssemblyLexer : public antlr4::Lexer {
 public:
   enum {
-    T__0 = 1, T__1 = 2, INT = 3, WS = 4
+    T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, REGISTER = 5, INT = 6, WS = 7
   };
 
-  explicit ExprLexer(antlr4::CharStream *input);
+  explicit AssemblyLexer(antlr4::CharStream *input);
 
-  ~ExprLexer() override;
+  ~AssemblyLexer() override;
 
 
   std::string getGrammarFileName() const override;
