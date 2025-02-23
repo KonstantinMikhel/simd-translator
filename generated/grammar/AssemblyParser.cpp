@@ -53,29 +53,34 @@ void assemblyParserInitialize() {
 #endif
   auto staticData = std::make_unique<AssemblyParserStaticData>(
     std::vector<std::string>{
-      "program", "statement", "addStatement", "subStatement", "register", 
-      "operand"
+      "program", "statement", "addStatement", "subStatement", "cmpStatement", 
+      "jzStatement", "register", "operand", "label"
     },
     std::vector<std::string>{
-      "", "'add'", "','", "'\\n'", "'sub'"
+      "", "'add'", "','", "'\\n'", "'sub'", "'cmp'", "'jz'"
     },
     std::vector<std::string>{
-      "", "", "", "", "", "VALID_NAME", "INT", "WS"
+      "", "", "", "", "", "", "", "VALID_NAME", "INT", "WS"
     }
   );
   static const int32_t serializedATNSegment[] = {
-  	4,1,7,43,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,1,0,5,0,14,8,
-  	0,10,0,12,0,17,9,0,1,0,1,0,1,1,1,1,3,1,23,8,1,1,2,1,2,1,2,1,2,1,2,1,2,
-  	1,3,1,3,1,3,1,3,1,3,1,3,1,4,1,4,1,5,1,5,3,5,41,8,5,1,5,0,0,6,0,2,4,6,
-  	8,10,0,0,39,0,15,1,0,0,0,2,22,1,0,0,0,4,24,1,0,0,0,6,30,1,0,0,0,8,36,
-  	1,0,0,0,10,40,1,0,0,0,12,14,3,2,1,0,13,12,1,0,0,0,14,17,1,0,0,0,15,13,
-  	1,0,0,0,15,16,1,0,0,0,16,18,1,0,0,0,17,15,1,0,0,0,18,19,5,0,0,1,19,1,
-  	1,0,0,0,20,23,3,4,2,0,21,23,3,6,3,0,22,20,1,0,0,0,22,21,1,0,0,0,23,3,
-  	1,0,0,0,24,25,5,1,0,0,25,26,3,8,4,0,26,27,5,2,0,0,27,28,3,10,5,0,28,29,
-  	5,3,0,0,29,5,1,0,0,0,30,31,5,4,0,0,31,32,3,8,4,0,32,33,5,2,0,0,33,34,
-  	3,10,5,0,34,35,5,3,0,0,35,7,1,0,0,0,36,37,5,5,0,0,37,9,1,0,0,0,38,41,
-  	3,8,4,0,39,41,5,6,0,0,40,38,1,0,0,0,40,39,1,0,0,0,41,11,1,0,0,0,3,15,
-  	22,40
+  	4,1,9,63,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
+  	7,7,2,8,7,8,1,0,5,0,20,8,0,10,0,12,0,23,9,0,1,0,1,0,1,1,1,1,1,1,1,1,3,
+  	1,31,8,1,1,2,1,2,1,2,1,2,1,2,1,2,1,3,1,3,1,3,1,3,1,3,1,3,1,4,1,4,1,4,
+  	1,4,1,4,1,4,1,5,1,5,1,5,1,5,1,6,1,6,1,7,1,7,3,7,59,8,7,1,8,1,8,1,8,0,
+  	0,9,0,2,4,6,8,10,12,14,16,0,0,58,0,21,1,0,0,0,2,30,1,0,0,0,4,32,1,0,0,
+  	0,6,38,1,0,0,0,8,44,1,0,0,0,10,50,1,0,0,0,12,54,1,0,0,0,14,58,1,0,0,0,
+  	16,60,1,0,0,0,18,20,3,2,1,0,19,18,1,0,0,0,20,23,1,0,0,0,21,19,1,0,0,0,
+  	21,22,1,0,0,0,22,24,1,0,0,0,23,21,1,0,0,0,24,25,5,0,0,1,25,1,1,0,0,0,
+  	26,31,3,4,2,0,27,31,3,6,3,0,28,31,3,8,4,0,29,31,3,10,5,0,30,26,1,0,0,
+  	0,30,27,1,0,0,0,30,28,1,0,0,0,30,29,1,0,0,0,31,3,1,0,0,0,32,33,5,1,0,
+  	0,33,34,3,12,6,0,34,35,5,2,0,0,35,36,3,14,7,0,36,37,5,3,0,0,37,5,1,0,
+  	0,0,38,39,5,4,0,0,39,40,3,12,6,0,40,41,5,2,0,0,41,42,3,14,7,0,42,43,5,
+  	3,0,0,43,7,1,0,0,0,44,45,5,5,0,0,45,46,3,12,6,0,46,47,5,2,0,0,47,48,3,
+  	14,7,0,48,49,5,3,0,0,49,9,1,0,0,0,50,51,5,6,0,0,51,52,3,16,8,0,52,53,
+  	5,3,0,0,53,11,1,0,0,0,54,55,5,7,0,0,55,13,1,0,0,0,56,59,3,12,6,0,57,59,
+  	5,8,0,0,58,56,1,0,0,0,58,57,1,0,0,0,59,15,1,0,0,0,60,61,5,7,0,0,61,17,
+  	1,0,0,0,3,21,30,58
   };
   staticData->serializedATN = antlr4::atn::SerializedATNView(serializedATNSegment, sizeof(serializedATNSegment) / sizeof(serializedATNSegment[0]));
 
@@ -181,19 +186,18 @@ AssemblyParser::ProgramContext* AssemblyParser::program() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(15);
+    setState(21);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while (_la == AssemblyParser::T__0
-
-    || _la == AssemblyParser::T__3) {
-      setState(12);
+    while ((((_la & ~ 0x3fULL) == 0) &&
+      ((1ULL << _la) & 114) != 0)) {
+      setState(18);
       statement();
-      setState(17);
+      setState(23);
       _errHandler->sync(this);
       _la = _input->LA(1);
     }
-    setState(18);
+    setState(24);
     match(AssemblyParser::EOF);
    
   }
@@ -218,6 +222,14 @@ AssemblyParser::AddStatementContext* AssemblyParser::StatementContext::addStatem
 
 AssemblyParser::SubStatementContext* AssemblyParser::StatementContext::subStatement() {
   return getRuleContext<AssemblyParser::SubStatementContext>(0);
+}
+
+AssemblyParser::CmpStatementContext* AssemblyParser::StatementContext::cmpStatement() {
+  return getRuleContext<AssemblyParser::CmpStatementContext>(0);
+}
+
+AssemblyParser::JzStatementContext* AssemblyParser::StatementContext::jzStatement() {
+  return getRuleContext<AssemblyParser::JzStatementContext>(0);
 }
 
 
@@ -258,18 +270,30 @@ AssemblyParser::StatementContext* AssemblyParser::statement() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(22);
+    setState(30);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case AssemblyParser::T__0: {
-        setState(20);
+        setState(26);
         addStatement();
         break;
       }
 
       case AssemblyParser::T__3: {
-        setState(21);
+        setState(27);
         subStatement();
+        break;
+      }
+
+      case AssemblyParser::T__4: {
+        setState(28);
+        cmpStatement();
+        break;
+      }
+
+      case AssemblyParser::T__5: {
+        setState(29);
+        jzStatement();
         break;
       }
 
@@ -339,15 +363,15 @@ AssemblyParser::AddStatementContext* AssemblyParser::addStatement() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(24);
+    setState(32);
     match(AssemblyParser::T__0);
-    setState(25);
+    setState(33);
     register_();
-    setState(26);
+    setState(34);
     match(AssemblyParser::T__1);
-    setState(27);
+    setState(35);
     operand();
-    setState(28);
+    setState(36);
     match(AssemblyParser::T__2);
    
   }
@@ -412,15 +436,153 @@ AssemblyParser::SubStatementContext* AssemblyParser::subStatement() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(30);
+    setState(38);
     match(AssemblyParser::T__3);
-    setState(31);
+    setState(39);
     register_();
-    setState(32);
+    setState(40);
     match(AssemblyParser::T__1);
-    setState(33);
+    setState(41);
     operand();
-    setState(34);
+    setState(42);
+    match(AssemblyParser::T__2);
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- CmpStatementContext ------------------------------------------------------------------
+
+AssemblyParser::CmpStatementContext::CmpStatementContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+AssemblyParser::RegisterContext* AssemblyParser::CmpStatementContext::register_() {
+  return getRuleContext<AssemblyParser::RegisterContext>(0);
+}
+
+AssemblyParser::OperandContext* AssemblyParser::CmpStatementContext::operand() {
+  return getRuleContext<AssemblyParser::OperandContext>(0);
+}
+
+
+size_t AssemblyParser::CmpStatementContext::getRuleIndex() const {
+  return AssemblyParser::RuleCmpStatement;
+}
+
+void AssemblyParser::CmpStatementContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<AssemblyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterCmpStatement(this);
+}
+
+void AssemblyParser::CmpStatementContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<AssemblyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitCmpStatement(this);
+}
+
+
+std::any AssemblyParser::CmpStatementContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<AssemblyVisitor*>(visitor))
+    return parserVisitor->visitCmpStatement(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+AssemblyParser::CmpStatementContext* AssemblyParser::cmpStatement() {
+  CmpStatementContext *_localctx = _tracker.createInstance<CmpStatementContext>(_ctx, getState());
+  enterRule(_localctx, 8, AssemblyParser::RuleCmpStatement);
+
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
+  auto onExit = finally([=] {
+#endif
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(44);
+    match(AssemblyParser::T__4);
+    setState(45);
+    register_();
+    setState(46);
+    match(AssemblyParser::T__1);
+    setState(47);
+    operand();
+    setState(48);
+    match(AssemblyParser::T__2);
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- JzStatementContext ------------------------------------------------------------------
+
+AssemblyParser::JzStatementContext::JzStatementContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+AssemblyParser::LabelContext* AssemblyParser::JzStatementContext::label() {
+  return getRuleContext<AssemblyParser::LabelContext>(0);
+}
+
+
+size_t AssemblyParser::JzStatementContext::getRuleIndex() const {
+  return AssemblyParser::RuleJzStatement;
+}
+
+void AssemblyParser::JzStatementContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<AssemblyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterJzStatement(this);
+}
+
+void AssemblyParser::JzStatementContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<AssemblyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitJzStatement(this);
+}
+
+
+std::any AssemblyParser::JzStatementContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<AssemblyVisitor*>(visitor))
+    return parserVisitor->visitJzStatement(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+AssemblyParser::JzStatementContext* AssemblyParser::jzStatement() {
+  JzStatementContext *_localctx = _tracker.createInstance<JzStatementContext>(_ctx, getState());
+  enterRule(_localctx, 10, AssemblyParser::RuleJzStatement);
+
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
+  auto onExit = finally([=] {
+#endif
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(50);
+    match(AssemblyParser::T__5);
+    setState(51);
+    label();
+    setState(52);
     match(AssemblyParser::T__2);
    
   }
@@ -470,7 +632,7 @@ std::any AssemblyParser::RegisterContext::accept(tree::ParseTreeVisitor *visitor
 
 AssemblyParser::RegisterContext* AssemblyParser::register_() {
   RegisterContext *_localctx = _tracker.createInstance<RegisterContext>(_ctx, getState());
-  enterRule(_localctx, 8, AssemblyParser::RuleRegister);
+  enterRule(_localctx, 12, AssemblyParser::RuleRegister);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -481,7 +643,7 @@ AssemblyParser::RegisterContext* AssemblyParser::register_() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(36);
+    setState(54);
     match(AssemblyParser::VALID_NAME);
    
   }
@@ -535,7 +697,7 @@ std::any AssemblyParser::OperandContext::accept(tree::ParseTreeVisitor *visitor)
 
 AssemblyParser::OperandContext* AssemblyParser::operand() {
   OperandContext *_localctx = _tracker.createInstance<OperandContext>(_ctx, getState());
-  enterRule(_localctx, 10, AssemblyParser::RuleOperand);
+  enterRule(_localctx, 14, AssemblyParser::RuleOperand);
 
 #if __cplusplus > 201703L
   auto onExit = finally([=, this] {
@@ -546,17 +708,17 @@ AssemblyParser::OperandContext* AssemblyParser::operand() {
   });
   try {
     enterOuterAlt(_localctx, 1);
-    setState(40);
+    setState(58);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
       case AssemblyParser::VALID_NAME: {
-        setState(38);
+        setState(56);
         register_();
         break;
       }
 
       case AssemblyParser::INT: {
-        setState(39);
+        setState(57);
         match(AssemblyParser::INT);
         break;
       }
@@ -564,6 +726,67 @@ AssemblyParser::OperandContext* AssemblyParser::operand() {
     default:
       throw NoViableAltException(this);
     }
+   
+  }
+  catch (RecognitionException &e) {
+    _errHandler->reportError(this, e);
+    _localctx->exception = std::current_exception();
+    _errHandler->recover(this, _localctx->exception);
+  }
+
+  return _localctx;
+}
+
+//----------------- LabelContext ------------------------------------------------------------------
+
+AssemblyParser::LabelContext::LabelContext(ParserRuleContext *parent, size_t invokingState)
+  : ParserRuleContext(parent, invokingState) {
+}
+
+tree::TerminalNode* AssemblyParser::LabelContext::VALID_NAME() {
+  return getToken(AssemblyParser::VALID_NAME, 0);
+}
+
+
+size_t AssemblyParser::LabelContext::getRuleIndex() const {
+  return AssemblyParser::RuleLabel;
+}
+
+void AssemblyParser::LabelContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<AssemblyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterLabel(this);
+}
+
+void AssemblyParser::LabelContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<AssemblyListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitLabel(this);
+}
+
+
+std::any AssemblyParser::LabelContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<AssemblyVisitor*>(visitor))
+    return parserVisitor->visitLabel(this);
+  else
+    return visitor->visitChildren(this);
+}
+
+AssemblyParser::LabelContext* AssemblyParser::label() {
+  LabelContext *_localctx = _tracker.createInstance<LabelContext>(_ctx, getState());
+  enterRule(_localctx, 16, AssemblyParser::RuleLabel);
+
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
+  auto onExit = finally([=] {
+#endif
+    exitRule();
+  });
+  try {
+    enterOuterAlt(_localctx, 1);
+    setState(60);
+    match(AssemblyParser::VALID_NAME);
    
   }
   catch (RecognitionException &e) {

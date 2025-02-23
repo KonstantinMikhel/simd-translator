@@ -28,11 +28,20 @@ public:
   virtual void enterSubStatement(AssemblyParser::SubStatementContext * /*ctx*/) override { }
   virtual void exitSubStatement(AssemblyParser::SubStatementContext * /*ctx*/) override { }
 
+  virtual void enterCmpStatement(AssemblyParser::CmpStatementContext * /*ctx*/) override { }
+  virtual void exitCmpStatement(AssemblyParser::CmpStatementContext * /*ctx*/) override { }
+
+  virtual void enterJzStatement(AssemblyParser::JzStatementContext * /*ctx*/) override { }
+  virtual void exitJzStatement(AssemblyParser::JzStatementContext * /*ctx*/) override { }
+
   virtual void enterRegister(AssemblyParser::RegisterContext * /*ctx*/) override { }
   virtual void exitRegister(AssemblyParser::RegisterContext * /*ctx*/) override { }
 
   virtual void enterOperand(AssemblyParser::OperandContext * /*ctx*/) override { }
   virtual void exitOperand(AssemblyParser::OperandContext * /*ctx*/) override { }
+
+  virtual void enterLabel(AssemblyParser::LabelContext * /*ctx*/) override { }
+  virtual void exitLabel(AssemblyParser::LabelContext * /*ctx*/) override { }
 
 
   virtual void enterEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }

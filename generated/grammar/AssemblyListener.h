@@ -26,11 +26,20 @@ public:
   virtual void enterSubStatement(AssemblyParser::SubStatementContext *ctx) = 0;
   virtual void exitSubStatement(AssemblyParser::SubStatementContext *ctx) = 0;
 
+  virtual void enterCmpStatement(AssemblyParser::CmpStatementContext *ctx) = 0;
+  virtual void exitCmpStatement(AssemblyParser::CmpStatementContext *ctx) = 0;
+
+  virtual void enterJzStatement(AssemblyParser::JzStatementContext *ctx) = 0;
+  virtual void exitJzStatement(AssemblyParser::JzStatementContext *ctx) = 0;
+
   virtual void enterRegister(AssemblyParser::RegisterContext *ctx) = 0;
   virtual void exitRegister(AssemblyParser::RegisterContext *ctx) = 0;
 
   virtual void enterOperand(AssemblyParser::OperandContext *ctx) = 0;
   virtual void exitOperand(AssemblyParser::OperandContext *ctx) = 0;
+
+  virtual void enterLabel(AssemblyParser::LabelContext *ctx) = 0;
+  virtual void exitLabel(AssemblyParser::LabelContext *ctx) = 0;
 
 
 };

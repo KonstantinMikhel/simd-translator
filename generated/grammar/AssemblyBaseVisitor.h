@@ -31,11 +31,23 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual std::any visitCmpStatement(AssemblyParser::CmpStatementContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitJzStatement(AssemblyParser::JzStatementContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual std::any visitRegister(AssemblyParser::RegisterContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual std::any visitOperand(AssemblyParser::OperandContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitLabel(AssemblyParser::LabelContext *ctx) override {
     return visitChildren(ctx);
   }
 
