@@ -19,11 +19,20 @@ public:
   virtual void enterProgram(AssemblyParser::ProgramContext * /*ctx*/) override { }
   virtual void exitProgram(AssemblyParser::ProgramContext * /*ctx*/) override { }
 
+  virtual void enterStatement(AssemblyParser::StatementContext * /*ctx*/) override { }
+  virtual void exitStatement(AssemblyParser::StatementContext * /*ctx*/) override { }
+
   virtual void enterAddStatement(AssemblyParser::AddStatementContext * /*ctx*/) override { }
   virtual void exitAddStatement(AssemblyParser::AddStatementContext * /*ctx*/) override { }
 
   virtual void enterSubStatement(AssemblyParser::SubStatementContext * /*ctx*/) override { }
   virtual void exitSubStatement(AssemblyParser::SubStatementContext * /*ctx*/) override { }
+
+  virtual void enterRegister(AssemblyParser::RegisterContext * /*ctx*/) override { }
+  virtual void exitRegister(AssemblyParser::RegisterContext * /*ctx*/) override { }
+
+  virtual void enterOperand(AssemblyParser::OperandContext * /*ctx*/) override { }
+  virtual void exitOperand(AssemblyParser::OperandContext * /*ctx*/) override { }
 
 
   virtual void enterEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }

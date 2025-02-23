@@ -3,11 +3,26 @@ grammar Assembly;
 program: statement* EOF;
 
 statement
-    : 'add' REGISTER ',' (REGISTER | INT) '\n' # addStatement
-    | 'sub' REGISTER ',' (REGISTER | INT) '\n' # subStatement  
+    : (addStatement | subStatement)
     ;
 
-REGISTER : [a-zA-Z_] [a-zA-Z_0-9]*;
+addStatement
+    : 'add' register ',' operand '\n'
+    ;
+
+subStatement
+    : 'sub' register ',' operand '\n'
+    ;
+
+register
+    : VALID_NAME
+    ;
+
+operand
+    : (register | INT)
+    ;
+
+VALID_NAME : [a-zA-Z_] [a-zA-Z_0-9]*;
 INT : '-'? [0-9]+;
 
 WS: [ \t\r\n]+ -> skip;

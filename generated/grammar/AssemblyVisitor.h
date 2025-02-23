@@ -21,9 +21,15 @@ public:
    */
     virtual std::any visitProgram(AssemblyParser::ProgramContext *context) = 0;
 
+    virtual std::any visitStatement(AssemblyParser::StatementContext *context) = 0;
+
     virtual std::any visitAddStatement(AssemblyParser::AddStatementContext *context) = 0;
 
     virtual std::any visitSubStatement(AssemblyParser::SubStatementContext *context) = 0;
+
+    virtual std::any visitRegister(AssemblyParser::RegisterContext *context) = 0;
+
+    virtual std::any visitOperand(AssemblyParser::OperandContext *context) = 0;
 
 
 };

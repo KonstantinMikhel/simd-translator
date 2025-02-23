@@ -12,7 +12,7 @@
 class  AssemblyLexer : public antlr4::Lexer {
 public:
   enum {
-    T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, REGISTER = 5, INT = 6, WS = 7
+    T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, VALID_NAME = 5, INT = 6, WS = 7
   };
 
   explicit AssemblyLexer(antlr4::CharStream *input);

@@ -57,7 +57,7 @@ void assemblylexerLexerInitialize() {
 #endif
   auto staticData = std::make_unique<AssemblyLexerStaticData>(
     std::vector<std::string>{
-      "T__0", "T__1", "T__2", "T__3", "REGISTER", "INT", "WS"
+      "T__0", "T__1", "T__2", "T__3", "VALID_NAME", "INT", "WS"
     },
     std::vector<std::string>{
       "DEFAULT_TOKEN_CHANNEL", "HIDDEN"
@@ -69,7 +69,7 @@ void assemblylexerLexerInitialize() {
       "", "'add'", "','", "'\\n'", "'sub'"
     },
     std::vector<std::string>{
-      "", "", "", "", "", "REGISTER", "INT", "WS"
+      "", "", "", "", "", "VALID_NAME", "INT", "WS"
     }
   );
   static const int32_t serializedATNSegment[] = {
