@@ -31,7 +31,6 @@ antlrcpp::Any CustomAssemblyVisitor::visitCmpStatement(AssemblyParser::CmpStatem
               << ", Operand: " << operand
               << "\n";
     return antlrcpp::Any{};
-    return antlrcpp::Any{};
 }
 
 
