@@ -1,2 +1,28 @@
-# simd-translator
-Translator for SIMD operations
+# SIMD Translator 
+
+# Установка проекта на Ubuntu
+
+## Шаг 1: Установите зависимости
+
+Для работы с проектом необходимо установить несколько зависимостей. Откройте терминал и выполните следующие команды:
+
+```
+sudo apt update
+sudo apt install -y openjdk-11-jdk cmake git
+```
+
+## Шаг 2: Клонируйте репозиторий
+
+Клонируйте репозиторий проекта с GitHub. Перейдите в директорию, куда Вы хотите склонировать проект и выполните следующие команды:
+
+```
+git clone https://github.com/KonstantinMikhel/simd-translator.git
+cd simd-translator
+```
+
+## Шаг 3: Соберите и запустите проект
+
+Запустите скрипт run.sh из директории проекта:
+```
+./run.sh
+```
